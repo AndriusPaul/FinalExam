@@ -1,11 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace FinalExam.Entity
+﻿namespace FinalExam.Dto
 {
-    public class Person
+    public class PersonDto
     {
-             
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public int PhoneNumber { get; set; }

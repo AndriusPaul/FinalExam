@@ -1,10 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace FinalExam.Entity
+﻿namespace FinalExam.Dto
 {
-    public class Address
+    public class AddressDto
     {
-        public int Id { get; set; }
         public string City { get; set; }
         public string Street { get; set; }
         public string StreetNumber { get; set; }

@@ -21,7 +21,7 @@ namespace FinalExam.Controllers
             return _userRepository.GetAll();
         }
         [HttpGet("id")]
-        public List<User> GetById(int id)
+        public List<User> GetById([FromQuery] int id)
         {
             return _userRepository.GetById(id);
         }

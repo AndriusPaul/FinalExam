@@ -6,30 +6,35 @@ namespace FinalExam.Repository
 {
     public class UserRepository : IUserRepository
     {
-        private readonly List<User> _users = new();
+        private readonly Context _context;
+
+        public UserRepository(Context context)
+        {
+            _context = context;
+        }
         public List<User> GetAll()
         {
-            return _users;
+            return _context.Users.ToList();
         }
         public List<User> GetById(int id)
         {
-            return _users.Where(x => x.Id == id).ToList();
+            return _context.Users.Where(x => x.Id == id).ToList();
         }
         public User AddNewUser(UserDto user)
         {
             var newUser = new User
             {
-                Id = _users.Count == 0 ? 1 : _users.Max(x => x.Id) + 1,
+                //Id = _context.Users.Count == 0 ? 1 : _users.Max(x => x.Id) + 1,
                 Name = user.UserName,
                 Password = user.Password
             };
-            _users.Add(newUser);
+            _context.Add(newUser);
             return newUser;
         }
         public User Delete(int id)
         {
-            var userToDelete = _users.Single(x => x.Id == id);
-            _users.Remove(userToDelete);
+            var userToDelete = _context.Users.Single(x => x.Id == id);
+            _context.Remove(userToDelete);
             return userToDelete;
         }
     }
