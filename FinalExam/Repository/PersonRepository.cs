@@ -10,45 +10,83 @@ namespace FinalExam.Repository
 
         public PersonRepository(Context context)
         {
-            _context= context;
+            _context = context;
         }
-        public List<Person> GetAll()
+        public Person GetById(int id)
         {
-            return _context.Persons.ToList();
+            return _context.Persons.FirstOrDefault(x => x.Id == id);
         }
         public Person AddNewPerson(PersonDto person)
         {
+
             var newPerson = new Person
             {
+
                 Name = person.Name,
-                Surname= person.Surname,
-                PhoneNumber= person.PhoneNumber,
-                Email= person.Email,
-                ProfilePicture= person.ProfilePicture,
-                Address= person.Address
+                Surname = person.Surname,
+                PersonalId = person.PersonalId,
+                Phone = person.Phone,
+                Email = person.Email,
+                Image = person.Image,
+                UserId = _context.Users.Max(x=>x.Id),
+
             };
             _context.Persons.Add(newPerson);
+            _context.SaveChanges();
             return newPerson;
         }
+        public Person UpdatePersonName(int id, string name)
+        {
+            var userToUpdate = _context.Persons.FirstOrDefault(x => x.Id == id);
+            if (userToUpdate == null) { return null; }
+            userToUpdate.Name = name;
+            _context.SaveChanges();
+            return userToUpdate;
 
-        public Person UpdatePerson(int id, PersonDto person)
-        {
-            var personToUpadate = _context.Persons.Single(x=>x.Id== id);
-            personToUpadate.Name= person.Name;
-            personToUpadate.Surname= person.Surname;
-            personToUpadate.PhoneNumber= person.PhoneNumber;
-            personToUpadate.Email= person.Email;
-            personToUpadate.ProfilePicture= person.ProfilePicture;
-            personToUpadate.Address= person.Address;
-            _context.SaveChanges();
-            return personToUpadate;
         }
-        public Person DeletePerson(int id)
+
+        public Person UpdatePersonSurname(int id, string surname)
         {
-            var personToDelete = _context.Persons.SingleOrDefault(x => x.Id == id);
-            _context.Remove(personToDelete);
+            var user = _context.Persons.FirstOrDefault(x => x.Id == id);
+            if (user == null) { return null; }
+            user.Surname = surname;
             _context.SaveChanges();
-            return personToDelete;
+            return user;
         }
+        public Person UpdatePersonPersonalId(int id, string personalId)
+        {
+            var user = _context.Persons.FirstOrDefault(x => x.Id == id);
+            if (user == null) { return null; }
+            user.PersonalId = personalId;
+            _context.SaveChanges();
+            return user;
+        }
+        public Person UpdatePersonPhone(int id, string phone)
+        {
+            var user = _context.Persons.FirstOrDefault(x => x.Id == id);
+            if (user == null) { return null; }
+            user.Phone = phone;
+            _context.SaveChanges();
+            return user;
+        }
+
+        public Person UpdatePersonEmail(int id, string email)
+        {
+            var user = _context.Persons.FirstOrDefault(x => x.Id == id);
+            if (user == null) { return null; }
+            user.Email = email;
+            _context.SaveChanges();
+            return user;
+
+        }
+        public Person UpdatePersonImage(int id, byte[] image)
+        {
+            var user = _context.Persons.FirstOrDefault(x => x.Id == id);
+            if (user == null) { return null; }
+            user.Image = image;
+            _context.SaveChanges();
+            return user;
+        }
+
     }
 }

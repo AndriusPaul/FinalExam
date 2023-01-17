@@ -5,9 +5,15 @@ namespace FinalExam.Interface
 {
     public interface IPersonRepository
     {
-        List<Person> GetAll();
+        Person GetById(int id);
         Person AddNewPerson(PersonDto person);
-        Person UpdatePerson(int id, PersonDto person);
-        Person DeletePerson(int id);
+        Person UpdatePersonName(int id, string name);
+        Person UpdatePersonSurname(int id, string surname);
+        Person UpdatePersonPersonalId(int id, string personalId);
+        Person UpdatePersonPhone(int id, string phone);
+        Person UpdatePersonEmail(int id, string email);
+        Person UpdatePersonImage(int id, byte[] image);
+
+
     }
 }

@@ -24,7 +24,10 @@ namespace FinalExam.Migrations
             modelBuilder.Entity("FinalExam.Entity.Address", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -33,6 +36,9 @@ namespace FinalExam.Migrations
                     b.Property<string>("HouseNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Street")
                         .IsRequired()
@@ -44,30 +50,36 @@ namespace FinalExam.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PersonId");
+
                     b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("FinalExam.Entity.Person", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("Image")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PhoneNumber")
-                        .HasColumnType("int");
+                    b.Property<string>("PersonalId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ProfilePicture")
+                    b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -75,7 +87,12 @@ namespace FinalExam.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Persons");
                 });
@@ -88,15 +105,15 @@ namespace FinalExam.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -108,8 +125,8 @@ namespace FinalExam.Migrations
             modelBuilder.Entity("FinalExam.Entity.Address", b =>
                 {
                     b.HasOne("FinalExam.Entity.Person", "Person")
-                        .WithOne("Address2")
-                        .HasForeignKey("FinalExam.Entity.Address", "Id")
+                        .WithMany()
+                        .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -119,24 +136,12 @@ namespace FinalExam.Migrations
             modelBuilder.Entity("FinalExam.Entity.Person", b =>
                 {
                     b.HasOne("FinalExam.Entity.User", "User")
-                        .WithOne("Person")
-                        .HasForeignKey("FinalExam.Entity.Person", "Id")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("FinalExam.Entity.Person", b =>
-                {
-                    b.Navigation("Address2")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FinalExam.Entity.User", b =>
-                {
-                    b.Navigation("Person")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

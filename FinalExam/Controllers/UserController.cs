@@ -15,11 +15,6 @@ namespace FinalExam.Controllers
         {
             _userRepository = userRepository;
         }
-        [HttpGet]
-        public List<User> Get()
-        {
-            return _userRepository.GetAll();
-        }
         [HttpGet("id")]
         public List<User> GetById([FromQuery] int id)
         {
@@ -29,6 +24,11 @@ namespace FinalExam.Controllers
         public User Add([FromBody] UserDto user)
         {
             return _userRepository.AddNewUser(user);
+        }
+        [HttpPut("id")]
+        public User Update(int id, [FromBody] UserDto user) 
+        { 
+            return _userRepository.UpdateUser(id, user);
         }
         [HttpDelete]
         public User Delete([FromQuery] int id) 

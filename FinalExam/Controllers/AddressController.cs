@@ -17,25 +17,39 @@ namespace FinalExam.Controllers
         }
         [HttpGet]
 
-        public List<Address> GetByPersonId([FromQuery] int id)
+        public ActionResult<Address> GetById([FromQuery] int id)
         {
-            return _addressRepository.GetByPersonId(id);
+            var userAddress = _addressRepository.GetById(id);
+            return userAddress == null ? NotFound() : Ok(userAddress);
         }
         [HttpPost]
-
-        public Address Add([FromQuery] int id, [FromBody] AddressDto address)
+        public ActionResult<Address> Add([FromBody] AddressDto address)
         {
-            return _addressRepository.AddNewAddressById(id, address);
+            var userAddress = _addressRepository.AddNewAddress(address);
+            return userAddress == null ? NotFound() : Ok(userAddress);
         }
-        [HttpPut]
-        public Address Update([FromQuery] int id, [FromBody] AddressDto address)
-        {
-            return _addressRepository.UpdateAddressById(id, address);
+        [HttpPut("city")]
+        public ActionResult<Address> UpdateCity([FromQuery] int id, [FromQuery] string city) {
+            var userAddress = _addressRepository.UpdateCity(id, city);
+            return userAddress == null ? NotFound() : Ok(userAddress);
         }
-        [HttpDelete]
-        public Address Delete([FromQuery] int id)
+        [HttpPut("street")]
+        public ActionResult<Address> UpdateStreet([FromQuery] int id, [FromQuery] string street)
         {
-            return _addressRepository.Delete(id);
+            var userAddress = _addressRepository.UpdateStreet(id, street);
+            return userAddress == null ? NotFound() : Ok(userAddress);
+        }
+        [HttpPut("streetNumber")]
+        public ActionResult<Address> UpdateStreetNumber([FromQuery] int id, [FromQuery] string streetNumber)
+        {
+            var userAddress = _addressRepository.UpdateStreetNumber(id, streetNumber);
+            return userAddress == null ? NotFound() : Ok(userAddress);
+        }
+        [HttpPut("houseNumber")]
+        public ActionResult<Address> UpdateHouseNumber([FromQuery] int id, [FromQuery] string houseNumber)
+        {
+            var userAddress = _addressRepository.UpdateHouseNumber(id, houseNumber);
+            return userAddress == null ? NotFound() : Ok(userAddress);
         }
 
 

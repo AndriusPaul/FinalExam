@@ -1,7 +1,7 @@
 ﻿using FinalExam.Dto;
 using FinalExam.Entity;
 using FinalExam.Interface;
-using Microsoft.Extensions.Logging.Abstractions;
+
 
 namespace FinalExam.Repository
 {
@@ -15,41 +15,62 @@ namespace FinalExam.Repository
             _context = context;
         }
 
-        public List<Address> GetByPersonId(int id)
+        public Address GetById(int id)
         {
-            return _context.Addresses.Where(x => x.Id == id).ToList();
+            return _context.Addresses.FirstOrDefault(x => x.Id == id);
+            
         }
-        public Address AddNewAddressById(int id, AddressDto address)
+        public Address AddNewAddress(AddressDto address)
         {
-            var newAddress = _context.Addresses.Single(x => x.Id == id);
-            newAddress.City = address.City;
-            newAddress.Street = address.Street;
-            newAddress.StreetNumber = address.StreetNumber;
-            newAddress.HouseNumber = address.HouseNumber;
+            var newAddress = new Address
+            {
+                City = address.City,
+                Street = address.Street,
+                StreetNumber = address.StreetNumber,
+                HouseNumber = address.HouseNumber,
+                PersonId = _context.Persons.Max(x => x.Id),
+            };
 
             _context.Addresses.Add(newAddress);
+            _context.SaveChanges();
             return newAddress;
         }
+ 
 
-        public Address UpdateAddressById(int id, AddressDto address)
+        public Address UpdateStreet(int id, string street)
         {
-            var addressToUpdate = _context.Addresses.Single(x=>x.Id == id);
-            addressToUpdate.City = address.City;
-            addressToUpdate.Street = address.Street;
-            addressToUpdate.StreetNumber = address.StreetNumber;
-            addressToUpdate.HouseNumber = address.HouseNumber;
-
-            return addressToUpdate;
-        }
-        public Address Delete(int id)
-        {
-            var AddressToDelete = _context.Addresses.Single(x=>x.Id == id);
-            _context.Addresses.Remove(AddressToDelete);
-            return AddressToDelete;
+            var userAddress = _context.Addresses.FirstOrDefault(x=>x.Id == id);
+            if (userAddress == null) { return null; }
+            userAddress.Street = street;
+            _context.SaveChanges();
+            return userAddress;
         }
 
+        public Address UpdateStreetNumber(int id, string streetNumber)
+        {
+            var userAddress = _context.Addresses.FirstOrDefault(x=>x.Id ==id);
+            if (userAddress == null) { return null; }
+            userAddress.StreetNumber = streetNumber;
+            _context.SaveChanges();
+            return userAddress;
+        }
 
+        public Address UpdateHouseNumber(int id, string houseNumber)
+        {
+            var userAddress = _context.Addresses.FirstOrDefault(x=>x.Id == id);
+            if (userAddress == null) { return null; }
+            userAddress.HouseNumber = houseNumber;
+            _context.SaveChanges();
+            return userAddress;
+        }
 
-        
+        public Address UpdateCity(int id, string city)
+        {
+            var userAddress = _context.Addresses.FirstOrDefault(x => x.Id == id);
+            if (userAddress == null) { return null; }
+            userAddress.City= city;
+            _context.SaveChanges();
+            return userAddress;
+        }
     }
 }
