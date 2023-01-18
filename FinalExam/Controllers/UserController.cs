@@ -15,6 +15,19 @@ namespace FinalExam.Controllers
         {
             _userRepository = userRepository;
         }
+
+
+        [HttpGet]
+        public ActionResult<User> Get()
+        {
+            var user = _userRepository.GetAll();
+            return user == null ? NotFound() : Ok(user);
+        }
+        [HttpGet("username")]
+        public User GetByUsername(string username)
+        {
+            return _userRepository.GetByUsername(username);
+        }
         [HttpGet("id")]
         public List<User> GetById([FromQuery] int id)
         {
@@ -25,16 +38,17 @@ namespace FinalExam.Controllers
         {
             return _userRepository.AddNewUser(user);
         }
+        
         [HttpPut("id")]
-        public User Update(int id, [FromBody] UserDto user) 
-        { 
+        public User Update(int id, [FromBody] UserDto user)
+        {
             return _userRepository.UpdateUser(id, user);
         }
         [HttpDelete]
-        public User Delete([FromQuery] int id) 
+        public User Delete([FromQuery] int id)
         {
-        return _userRepository.Delete(id);
+            return _userRepository.Delete(id);
         }
-        
+
     }
 }

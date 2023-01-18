@@ -50,7 +50,8 @@ namespace FinalExam.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("PersonId")
+                        .IsUnique();
 
                     b.ToTable("Addresses");
                 });
@@ -92,7 +93,8 @@ namespace FinalExam.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Persons");
                 });
@@ -125,8 +127,8 @@ namespace FinalExam.Migrations
             modelBuilder.Entity("FinalExam.Entity.Address", b =>
                 {
                     b.HasOne("FinalExam.Entity.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonId")
+                        .WithOne("Address")
+                        .HasForeignKey("FinalExam.Entity.Address", "PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -136,12 +138,24 @@ namespace FinalExam.Migrations
             modelBuilder.Entity("FinalExam.Entity.Person", b =>
                 {
                     b.HasOne("FinalExam.Entity.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                        .WithOne("Person")
+                        .HasForeignKey("FinalExam.Entity.Person", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("FinalExam.Entity.Person", b =>
+                {
+                    b.Navigation("Address")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FinalExam.Entity.User", b =>
+                {
+                    b.Navigation("Person")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

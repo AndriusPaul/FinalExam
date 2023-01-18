@@ -1,6 +1,7 @@
 ﻿using FinalExam.Dto;
 using FinalExam.Entity;
 using FinalExam.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinalExam.Repository
 {
@@ -51,6 +52,15 @@ namespace FinalExam.Repository
             return userToDelete;
         }
 
-      
+        public List<User> GetAll()
+        {
+            return _context.Users.ToList();
+        }
+
+        public User GetByUsername(string username)
+        {
+            return  _context.Users.FirstOrDefault(x => x.Username == username);
+            
+        }
     }
 }

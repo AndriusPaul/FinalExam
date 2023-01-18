@@ -76,12 +76,14 @@ namespace FinalExam.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_PersonId",
                 table: "Addresses",
-                column: "PersonId");
+                column: "PersonId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Persons_UserId",
                 table: "Persons",
-                column: "UserId");
+                column: "UserId",
+                unique: true);
         }
 
         /// <inheritdoc />

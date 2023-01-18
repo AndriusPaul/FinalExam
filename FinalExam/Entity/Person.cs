@@ -12,10 +12,10 @@ namespace FinalExam.Entity
         public string Phone { get; set; }
         public string Email { get; set; }
         public byte[] Image { get; set; }
-
         [ForeignKey("User")]
         public int UserId { get; set; }
-        public User User { get; set; }
+        public virtual User User { get; set; }
+        public virtual Address Address { get; set; }
 
     }
 }
