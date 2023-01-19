@@ -5,11 +5,9 @@ namespace FinalExam.Interface
 {
     public interface IUserRepository
     {
-        List<User> GetAll();
-        User GetByUsername(string username);
-        List<User> GetById(int id);
+        User Get(UserDto user);
+        User Get(string username);
         User AddNewUser(UserDto user);
-        User UpdateUser(int id, UserDto user);
         User Delete(int id);
     }
 }

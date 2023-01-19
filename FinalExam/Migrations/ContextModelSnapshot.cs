@@ -37,9 +37,6 @@ namespace FinalExam.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Street")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -48,9 +45,12 @@ namespace FinalExam.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("PersonId")
+                    b.HasIndex("UserId")
                         .IsUnique();
 
                     b.ToTable("Addresses");
@@ -126,13 +126,13 @@ namespace FinalExam.Migrations
 
             modelBuilder.Entity("FinalExam.Entity.Address", b =>
                 {
-                    b.HasOne("FinalExam.Entity.Person", "Person")
+                    b.HasOne("FinalExam.Entity.User", "User")
                         .WithOne("Address")
-                        .HasForeignKey("FinalExam.Entity.Address", "PersonId")
+                        .HasForeignKey("FinalExam.Entity.Address", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Person");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("FinalExam.Entity.Person", b =>
@@ -146,14 +146,11 @@ namespace FinalExam.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("FinalExam.Entity.Person", b =>
+            modelBuilder.Entity("FinalExam.Entity.User", b =>
                 {
                     b.Navigation("Address")
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("FinalExam.Entity.User", b =>
-                {
                     b.Navigation("Person")
                         .IsRequired();
                 });

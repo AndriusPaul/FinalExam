@@ -5,6 +5,7 @@ namespace FinalExam.Entity
 {
     public class Person
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
@@ -14,8 +15,8 @@ namespace FinalExam.Entity
         public byte[] Image { get; set; }
         [ForeignKey("User")]
         public int UserId { get; set; }
-        public virtual User User { get; set; }
-        public virtual Address Address { get; set; }
+        public User User { get; set; }
+        
 
     }
 }

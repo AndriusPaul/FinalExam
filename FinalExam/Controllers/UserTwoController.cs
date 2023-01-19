@@ -17,7 +17,7 @@ namespace FinalExam.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(UserDto request)
+        public async Task<IActionResult> Register(UserDtoRegister request)
         {
             if (_context.Users.Any(u => u.Username == request.Username))
             {
@@ -35,7 +35,7 @@ namespace FinalExam.Controllers
 
         }
         [HttpPost("login")]
-        public async Task<IActionResult> Login(UserDtoLogin request)
+        public async Task<IActionResult> Login([FromQuery]UserDtoLogin request)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u=>u.Username == request.Username);
             if(user == null)

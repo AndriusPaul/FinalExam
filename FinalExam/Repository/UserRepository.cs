@@ -13,10 +13,6 @@ namespace FinalExam.Repository
         {
             _context = context;
         }
-        public List<User> GetById(int id)
-        {
-            return _context.Users.Where(x => x.Id == id).ToList();
-        }
         public User AddNewUser(UserDto user)
         {
             var newUser = new User
@@ -32,19 +28,6 @@ namespace FinalExam.Repository
             return newUser;
         }
 
-        public User UpdateUser(int id, UserDto user)
-        {
-            var userToUpdate = _context.Users.FirstOrDefault(x => x.Id == id);
-            if (userToUpdate == null)
-            {
-
-                return null;
-            } 
-                user.Password = user.Password;
-                _context.SaveChanges();
-                return userToUpdate;
-            
-        }
         public User Delete(int id)
         {
             var userToDelete = _context.Users.Single(x => x.Id == id);
@@ -52,15 +35,19 @@ namespace FinalExam.Repository
             return userToDelete;
         }
 
-        public List<User> GetAll()
+        public User Get(UserDto data)
         {
-            return _context.Users.ToList();
+           User user = _context.Users.FirstOrDefault(x => (x.Username == data.Username && x.Password == data.Password));
+            if (user == null)
+                return null;
+            return user;
         }
 
-        public User GetByUsername(string username)
+        public User Get(string username)
         {
             return  _context.Users.FirstOrDefault(x => x.Username == username);
-            
+
         }
+
     }
 }

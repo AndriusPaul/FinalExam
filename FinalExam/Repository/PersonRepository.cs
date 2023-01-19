@@ -14,7 +14,7 @@ namespace FinalExam.Repository
         }
         public Person GetById(int id)
         {
-            return _context.Persons.FirstOrDefault(x => x.Id == id);
+            return _context.Persons.FirstOrDefault(x => x.UserId == id);
         }
         public Person AddNewPerson(PersonDto person)
         {
@@ -28,7 +28,8 @@ namespace FinalExam.Repository
                 Phone = person.Phone,
                 Email = person.Email,
                 Image = person.Image,
-                UserId = _context.Users.Max(x=>x.Id),
+                UserId = _context.Users.Max(x => x.Id),
+                
 
             };
             _context.Persons.Add(newPerson);

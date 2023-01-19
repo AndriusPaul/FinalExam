@@ -17,18 +17,19 @@ namespace FinalExam.Repository
 
         public Address GetById(int id)
         {
-            return _context.Addresses.FirstOrDefault(x => x.Id == id);
+            return _context.Addresses.FirstOrDefault(x => x.UserId == id);
             
         }
         public Address AddNewAddress(AddressDto address)
         {
             var newAddress = new Address
             {
+                
                 City = address.City,
                 Street = address.Street,
                 StreetNumber = address.StreetNumber,
                 HouseNumber = address.HouseNumber,
-                PersonId = _context.Persons.Max(x => x.Id),
+                UserId = _context.Users.Max(x => x.Id),
             };
 
             _context.Addresses.Add(newAddress);

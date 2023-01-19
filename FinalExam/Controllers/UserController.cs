@@ -16,34 +16,25 @@ namespace FinalExam.Controllers
             _userRepository = userRepository;
         }
 
-
+        [HttpGet("user")]
+        public ActionResult<User> Get([FromQuery] string username)
+        {
+           User user=  _userRepository.Get(username);
+            return user == null ? NotFound(): Ok(user);
+        }
         [HttpGet]
-        public ActionResult<User> Get()
+        public ActionResult<User> Get([FromQuery] string username, [FromQuery] string password)
         {
-            var user = _userRepository.GetAll();
-            return user == null ? NotFound() : Ok(user);
-        }
-        [HttpGet("username")]
-        public User GetByUsername(string username)
-        {
-            return _userRepository.GetByUsername(username);
-        }
-        [HttpGet("id")]
-        public List<User> GetById([FromQuery] int id)
-        {
-            return _userRepository.GetById(id);
+            UserDto userDto = new UserDto { Password= password, Username= username };
+            var user = _userRepository.Get(userDto);
+            return user == null ? NotFound(): Ok(user);
         }
         [HttpPost]
         public User Add([FromBody] UserDto user)
         {
             return _userRepository.AddNewUser(user);
         }
-        
-        [HttpPut("id")]
-        public User Update(int id, [FromBody] UserDto user)
-        {
-            return _userRepository.UpdateUser(id, user);
-        }
+
         [HttpDelete]
         public User Delete([FromQuery] int id)
         {

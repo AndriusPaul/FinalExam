@@ -10,10 +10,9 @@ namespace FinalExam.Entity
         public string Street { get; set; }
         public string StreetNumber { get; set; }
         public string HouseNumber { get; set; }
-        [ForeignKey("Person")]
-
-        public int PersonId { get; set; }
-        public virtual Person Person { get; set; }
+        [ForeignKey("User")]
+        public int UserId { get; set; }
+        public User User { get; set; }
 
     }
 }

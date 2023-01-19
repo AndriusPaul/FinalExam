@@ -4,14 +4,11 @@ namespace FinalExam.Dto
 {
     public class UserDto
     {
-        [Required]
-        public string Username { get; set; } = string.Empty;
-        [Required, MinLength(6, ErrorMessage = "Please enter at least 6 characters!")]
-        public string Password { get; set; } = string.Empty;
-        public UserDto(string username, string password)
-        {
-            Username = username;
-            Password = password;
-        }
+        
+        public string Username { get; set; }
+        
+        public string Password { get; set; }
+        public string Role { get; set; }
+       
     }
 }
