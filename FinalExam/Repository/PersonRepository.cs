@@ -28,7 +28,7 @@ namespace FinalExam.Repository
                 Phone = person.Phone,
                 Email = person.Email,
                 Image = person.Image,
-                UserId = _context.Users.Max(x => x.Id),
+                UserId = person.UserId
                 
 
             };
@@ -89,5 +89,12 @@ namespace FinalExam.Repository
             return user;
         }
 
+        public Person Delete(int userId)
+        {
+            var userToDelete =  _context.Persons.FirstOrDefault(x=>x.UserId == userId);
+            _context.Remove(userToDelete);
+            _context.SaveChanges();
+            return userToDelete; 
+        }
     }
 }

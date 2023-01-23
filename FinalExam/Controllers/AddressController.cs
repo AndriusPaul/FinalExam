@@ -51,7 +51,11 @@ namespace FinalExam.Controllers
             var userAddress = _addressRepository.UpdateHouseNumber(id, houseNumber);
             return userAddress == null ? NotFound() : Ok(userAddress);
         }
-
+        [HttpDelete("ByUserId")]
+        public ActionResult<Address> Delete([FromQuery]int id) {
+        var addressToDelete = _addressRepository.Delete(id);
+            return addressToDelete== null ? NotFound() : Ok(addressToDelete);
+        }
 
     }
 }

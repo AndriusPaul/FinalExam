@@ -29,7 +29,7 @@ namespace FinalExam.Repository
                 Street = address.Street,
                 StreetNumber = address.StreetNumber,
                 HouseNumber = address.HouseNumber,
-                UserId = _context.Users.Max(x => x.Id),
+                UserId= address.UserId,
             };
 
             _context.Addresses.Add(newAddress);
@@ -72,6 +72,14 @@ namespace FinalExam.Repository
             userAddress.City= city;
             _context.SaveChanges();
             return userAddress;
+        }
+        public Address Delete (int userId)
+        {
+            var addressToDelete = _context.Addresses.FirstOrDefault(x=>x.UserId == userId);
+            if (addressToDelete != null) { return null; }
+            _context.Remove(addressToDelete);
+            _context.SaveChanges();
+            return addressToDelete;
         }
     }
 }

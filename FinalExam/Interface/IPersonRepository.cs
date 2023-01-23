@@ -13,6 +13,7 @@ namespace FinalExam.Interface
         Person UpdatePersonPhone(int id, string phone);
         Person UpdatePersonEmail(int id, string email);
         Person UpdatePersonImage(int id, byte[] image);
+        Person Delete(int userId);
 
 
     }

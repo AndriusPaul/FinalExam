@@ -15,7 +15,7 @@ namespace FinalExam.Controllers
         {
             _userRepository = userRepository;
         }
-
+        
         [HttpGet("user")]
         public ActionResult<User> Get([FromQuery] string username)
         {
@@ -35,7 +35,7 @@ namespace FinalExam.Controllers
             return _userRepository.AddNewUser(user);
         }
 
-        [HttpDelete]
+        [HttpDelete("ById")]
         public User Delete([FromQuery] int id)
         {
             return _userRepository.Delete(id);

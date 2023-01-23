@@ -5,6 +5,7 @@ namespace FinalExam.Interface
 {
     public interface IUserRepository
     {
+ 
         User Get(UserDto user);
         User Get(string username);
         User AddNewUser(UserDto user);

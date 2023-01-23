@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FinalExam.Dto;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FinalExam.Entity
@@ -16,7 +17,6 @@ namespace FinalExam.Entity
         [ForeignKey("User")]
         public int UserId { get; set; }
         public User User { get; set; }
-        
 
     }
 }

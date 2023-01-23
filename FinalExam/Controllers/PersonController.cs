@@ -63,5 +63,11 @@ public ActionResult<Person> UpdateImage([FromQuery]int id, [FromQuery] byte[] im
             var person = _personRepository.UpdatePersonImage(id, image);
             return person == null ? NotFound() : Ok(person);
         }
+        [HttpDelete("byUserId")]
+        public ActionResult<Person> Delete([FromQuery] int id)
+        {
+            var personToDelete = _personRepository.Delete(id);
+            return personToDelete == null ? NotFound() : Ok(personToDelete);
+        }
     }
 }

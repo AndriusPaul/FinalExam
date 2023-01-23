@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FinalExam.Entity;
+using System.ComponentModel.DataAnnotations;
 
 namespace FinalExam.Dto
 {
@@ -8,5 +9,8 @@ namespace FinalExam.Dto
         public string Username { get; set; } = string.Empty;
         [Required, MinLength(6, ErrorMessage = "Please enter at least 6 characters!")]
         public string Password { get; set; } = string.Empty;
+        public PersonDto Person { get; set; } 
+       public AddressDto Address { get; set; }
+
     }
 }

@@ -13,6 +13,7 @@ namespace FinalExam.Repository
         {
             _context = context;
         }
+       
         public User AddNewUser(UserDto user)
         {
             var newUser = new User
@@ -30,8 +31,9 @@ namespace FinalExam.Repository
 
         public User Delete(int id)
         {
-            var userToDelete = _context.Users.Single(x => x.Id == id);
+            var userToDelete = _context.Users.FirstOrDefault(x => x.Id == id);
             _context.Remove(userToDelete);
+            _context.SaveChanges();
             return userToDelete;
         }
 

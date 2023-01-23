@@ -11,6 +11,7 @@ namespace FinalExam.Interface
         Address UpdateStreet(int id, string street);
         Address UpdateStreetNumber (int id, string streetNumber);
         Address UpdateHouseNumber(int id, string houseNumber );
+        Address Delete(int userId);
      
     }
 }
